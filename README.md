@@ -2,6 +2,16 @@
 
 Esta é uma aplicação Next.js desenvolvida durante a aula de deploy com AWS Elastic Beanstalk na FIAP. O projeto demonstra como containerizar uma aplicação React/Next.js e realizar o deploy na AWS usando o serviço Elastic Beanstalk.
 
+## ☁️ Deploy no AWS Elastic Beanstalk
+
+### O que é o AWS Elastic Beanstalk?
+
+O Elastic Beanstalk é um serviço da AWS que simplifica o deploy e gerenciamento de aplicações web. Ele automaticamente:
+- Provisiona infraestrutura (EC2, Load Balancers, Auto Scaling)
+- Gerencia atualizações e monitoramento
+- Oferece rollback automático em caso de falhas
+- Suporta múltiplas linguagens e frameworks
+
 ## 📋 Sobre o Projeto
 
 A aplicação é baseada no template padrão do Next.js criado com `create-next-app`, incluindo:
@@ -19,6 +29,36 @@ A aplicação é baseada no template padrão do Next.js criado com `create-next-
 - **Docker** - Containerização da aplicação
 - **AWS Elastic Beanstalk** - Plataforma de deploy e gerenciamento
 - **Node.js 18** - Runtime JavaScript
+
+## 📊 Conceitos Aprendidos na Aula
+
+### 1. **Containerização**
+- Como criar um Dockerfile otimizado
+- Diferenças entre desenvolvimento e produção
+- Multi-stage builds para reduzir tamanho da imagem
+
+### 2. **AWS Elastic Beanstalk**
+- Vantagens do PaaS vs IaaS
+- Configuração de ambientes
+- Auto Scaling e Load Balancing automáticos
+
+### 3. **CI/CD Básico**
+- Deploy automatizado via CLI
+- Rollback em caso de falhas
+- Monitoramento de aplicações
+
+### 4. **Boas Práticas**
+- Estrutura de projetos para deploy
+- Configuração de variáveis de ambiente
+- Otimização de imagens Docker
+
+## 📚 Recursos Adicionais
+
+- [Documentação Next.js](https://nextjs.org/docs)
+- [AWS Elastic Beanstalk Guide](https://docs.aws.amazon.com/elasticbeanstalk/)
+- [Docker Documentation](https://docs.docker.com/)
+- [AWS CLI Reference](https://docs.aws.amazon.com/cli/)
+
 
 ## 📁 Estrutura do Projeto
 
@@ -84,107 +124,5 @@ A aplicação inclui um `Dockerfile` otimizado para produção:
 - **Porta exposta:** `3000`
 - **Processo:** Instala dependências → Build da aplicação → Executa em produção
 
-### Comandos Docker:
-
-```bash
-# Construir a imagem
-docker build -t deploy-beanstalk-fiap .
-
-# Executar o container
-docker run -p 3000:3000 deploy-beanstalk-fiap
-
-# Verificar se está rodando
-docker ps
-```
-
-## ☁️ Deploy no AWS Elastic Beanstalk
-
-### O que é o AWS Elastic Beanstalk?
-
-O Elastic Beanstalk é um serviço da AWS que simplifica o deploy e gerenciamento de aplicações web. Ele automaticamente:
-- Provisiona infraestrutura (EC2, Load Balancers, Auto Scaling)
-- Gerencia atualizações e monitoramento
-- Oferece rollback automático em caso de falhas
-- Suporta múltiplas linguagens e frameworks
-
-### Passo a Passo do Deploy
-
-#### 1. Preparação do Ambiente AWS
-
-**1.1. Instale o AWS CLI:**
-```bash
-# Windows
-winget install Amazon.AWSCLI
-
-# macOS
-brew install awscli
-
-# Linux
-sudo apt-get install awscli
-```
-
-**1.2. Configure suas credenciais AWS:**
-```bash
-aws configure
-```
-Insira:
-- AWS Access Key ID
-- AWS Secret Access Key
-- Default region (ex: us-east-1)
-- Default output format (json)
-
-#### 2. Instale o EB CLI
-
-```bash
-# Instalar via pip
-pip install awsebcli
-
-# Verificar instalação
-eb --version
-```
-
-## 📊 Conceitos Aprendidos na Aula
-
-### 1. **Containerização**
-- Como criar um Dockerfile otimizado
-- Diferenças entre desenvolvimento e produção
-- Multi-stage builds para reduzir tamanho da imagem
-
-### 2. **AWS Elastic Beanstalk**
-- Vantagens do PaaS vs IaaS
-- Configuração de ambientes
-- Auto Scaling e Load Balancing automáticos
-
-### 3. **CI/CD Básico**
-- Deploy automatizado via CLI
-- Rollback em caso de falhas
-- Monitoramento de aplicações
-
-### 4. **Boas Práticas**
-- Estrutura de projetos para deploy
-- Configuração de variáveis de ambiente
-- Otimização de imagens Docker
-
-## 🔧 Comandos Úteis
-
-### Desenvolvimento
-```bash
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build para produção
-npm run start        # Servidor de produção
-```
-
-### Docker
-```bash
-docker build -t app .                    # Build da imagem
-docker run -p 3000:3000 app             # Executar container
-docker exec -it <container_id> sh       # Acessar container
-```
 
 
-## 📚 Recursos Adicionais
-
-- [Documentação Next.js](https://nextjs.org/docs)
-- [AWS Elastic Beanstalk Guide](https://docs.aws.amazon.com/elasticbeanstalk/)
-- [Docker Documentation](https://docs.docker.com/)
-- [AWS CLI Reference](https://docs.aws.amazon.com/cli/)
