@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Deploy Beanstalk FIAP - Next.js Application
 
-## Getting Started
+Esta é uma aplicação Next.js desenvolvida durante a aula de deploy com AWS Elastic Beanstalk na FIAP. O projeto demonstra como containerizar uma aplicação React/Next.js e realizar o deploy na AWS usando o serviço Elastic Beanstalk.
 
-First, run the development server:
+## 📋 Sobre o Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A aplicação é baseada no template padrão do Next.js criado com `create-next-app`, incluindo:
+- Interface moderna com componentes React
+- Estilização com CSS Modules
+- Otimização de fontes com `next/font`
+- Containerização com Docker
+- Deploy automatizado no AWS Elastic Beanstalk
+
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js 14** - Framework React para aplicações web
+- **React** - Biblioteca JavaScript para interfaces
+- **CSS Modules** - Estilização componentizada
+- **Docker** - Containerização da aplicação
+- **AWS Elastic Beanstalk** - Plataforma de deploy e gerenciamento
+- **Node.js 18** - Runtime JavaScript
+
+## 📁 Estrutura do Projeto
+
+```
+deploy-beanstalk-fiap/
+├── app/
+│   ├── globals.css          # Estilos globais
+│   ├── layout.js            # Layout principal da aplicação
+│   ├── page.js              # Página inicial
+│   └── page.module.css      # Estilos da página inicial
+├── public/                  # Arquivos estáticos
+├── Dockerfile              # Configuração do container
+├── next.config.mjs         # Configuração do Next.js
+├── package.json            # Dependências e scripts
+└── README.md               # Documentação
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Configuração Local
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Pré-requisitos
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Node.js 18 ou superior
+- npm, yarn, pnpm ou bun
+- Docker (para containerização)
+- Conta AWS ativa
 
-## Learn More
+### Instalação e Execução
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/LeticiaRosa/deploy-beanstalk-fiap.git
+cd deploy-beanstalk-fiap
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Instale as dependências:**
+```bash
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. **Execute o servidor de desenvolvimento:**
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+```
 
-## Deploy on Vercel
+4. **Acesse a aplicação:**
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🐳 Containerização com Docker
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+A aplicação inclui um `Dockerfile` otimizado para produção:
+
+### Características do Dockerfile:
+- **Imagem base:** `node:18-alpine` (leve e segura)
+- **Workdir:** `/app`
+- **Porta exposta:** `3000`
+- **Processo:** Instala dependências → Build da aplicação → Executa em produção
+
+### Comandos Docker:
+
+```bash
+# Construir a imagem
+docker build -t deploy-beanstalk-fiap .
+
+# Executar o container
+docker run -p 3000:3000 deploy-beanstalk-fiap
+
+# Verificar se está rodando
+docker ps
+```
+
+## ☁️ Deploy no AWS Elastic Beanstalk
+
+### O que é o AWS Elastic Beanstalk?
+
+O Elastic Beanstalk é um serviço da AWS que simplifica o deploy e gerenciamento de aplicações web. Ele automaticamente:
+- Provisiona infraestrutura (EC2, Load Balancers, Auto Scaling)
+- Gerencia atualizações e monitoramento
+- Oferece rollback automático em caso de falhas
+- Suporta múltiplas linguagens e frameworks
+
+### Passo a Passo do Deploy
+
+#### 1. Preparação do Ambiente AWS
+
+**1.1. Instale o AWS CLI:**
+```bash
+# Windows
+winget install Amazon.AWSCLI
+
+# macOS
+brew install awscli
+
+# Linux
+sudo apt-get install awscli
+```
+
+**1.2. Configure suas credenciais AWS:**
+```bash
+aws configure
+```
+Insira:
+- AWS Access Key ID
+- AWS Secret Access Key
+- Default region (ex: us-east-1)
+- Default output format (json)
+
+#### 2. Instale o EB CLI
+
+```bash
+# Instalar via pip
+pip install awsebcli
+
+# Verificar instalação
+eb --version
+```
+
+## 📊 Conceitos Aprendidos na Aula
+
+### 1. **Containerização**
+- Como criar um Dockerfile otimizado
+- Diferenças entre desenvolvimento e produção
+- Multi-stage builds para reduzir tamanho da imagem
+
+### 2. **AWS Elastic Beanstalk**
+- Vantagens do PaaS vs IaaS
+- Configuração de ambientes
+- Auto Scaling e Load Balancing automáticos
+
+### 3. **CI/CD Básico**
+- Deploy automatizado via CLI
+- Rollback em caso de falhas
+- Monitoramento de aplicações
+
+### 4. **Boas Práticas**
+- Estrutura de projetos para deploy
+- Configuração de variáveis de ambiente
+- Otimização de imagens Docker
+
+## 🔧 Comandos Úteis
+
+### Desenvolvimento
+```bash
+npm run dev          # Servidor de desenvolvimento
+npm run build        # Build para produção
+npm run start        # Servidor de produção
+```
+
+### Docker
+```bash
+docker build -t app .                    # Build da imagem
+docker run -p 3000:3000 app             # Executar container
+docker exec -it <container_id> sh       # Acessar container
+```
+
+
+## 📚 Recursos Adicionais
+
+- [Documentação Next.js](https://nextjs.org/docs)
+- [AWS Elastic Beanstalk Guide](https://docs.aws.amazon.com/elasticbeanstalk/)
+- [Docker Documentation](https://docs.docker.com/)
+- [AWS CLI Reference](https://docs.aws.amazon.com/cli/)
